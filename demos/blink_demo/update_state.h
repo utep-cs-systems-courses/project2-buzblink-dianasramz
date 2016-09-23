@@ -1,1 +1,0 @@
-int update_state(unsigned int);
