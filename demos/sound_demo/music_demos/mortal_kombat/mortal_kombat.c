@@ -1,40 +1,24 @@
 #include "msp430.h"
+#include "sound.h"
+#include "delay.h"
+#include <stdlib.h>
  
-#define C_0 61156
-#define Db_0 57723
-#define D_0 54484
-#define Eb_0 51426
-#define E_0 48539
-#define F_0 45815
-#define Gb_0 43244
-#define G_0 40816
-#define Ab_0 38526
-#define A_0 36364
-#define Bb_0 34322
-#define B_0 32396
+void sound(struct note *, int);
+struct note newNote(long, char, long);
+struct note newRest(long);
 
-// 120 BPM
-#define DELAY 16000000
+const struct note A_2_QUARTER = {_A, 2, QUARTER};
+const struct note C_3_QUARTER = {_C, 3, QUARTER};
+const struct note D_3_QUARTER = {_D, 3, QUARTER};
+const struct note E_3_QUARTER = {_E, 3, QUARTER};
 
-#define WHOLE DELAY/2
-#define HALF DELAY/4
-#define QUARTER DELAY/8
-#define EIGTH DELAY/8
-#define SIXTEENTH DELAY/32
-#define THIRTYSECOND DELAY/3264
+const struct note G_3_QUARTER = {_G, 3, QUARTER};
+const struct note G_2_QUARTER = {_G, 2, QUARTER};
+const struct note B_2_QUARTER = {_B, 2, QUARTER};
+const struct note F_3_QUARTER = {_F, 3, QUARTER};
 
- 
-const unsigned int whole_notes[28] = { // 4 octaves, no flats
-    C_0, D_0, E_0, F_0, G_0, A_0, B_0, 
-    C_0 >> 1, D_0 >> 1, E_0 >> 1, F_0 >> 1, 
-    G_0 >> 1, A_0 >> 1, B_0 >> 1, 
-    C_0 >> 2, D_0 >> 2, E_0 >> 2, F_0 >> 2, 
-    G_0 >> 2, A_0 >> 2, B_0 >> 2, 
-    C_0 >> 3, D_0 >> 3, E_0 >> 3, F_0 >> 3, 
-    G_0 >> 3, A_0 >> 3, B_0 >> 3 
-};
- 
-void sound(char, unsigned int, char);
+struct note *mortal_kombat;
+void initialize_melody1();
 
 /* Plays a snippet of the song from Midway Games' game Mortal Kombat */
 int main(void) {
@@ -52,152 +36,63 @@ int main(void) {
     TA0CTL = TASSEL_2 + MC_1 + ID_2; // SMCLK, upmode, /4
     TA0CCTL1 = OUTMOD_3;
   
+    mortal_kombat = malloc(sizeof(struct note) * 24);
     while (1) {
-        char d = 'q';
-        char i;
+        initialize_melody1();
+        //sound(mortal_kombat, 24);
+    }
+}
+/* Takes in a pointer to an array of note structures and iterates through,
+playing each note for the appropriate duration of time */
+void sound(struct note *music, int size){
+    char i;
+    for(i = 0; i < size; i++){
+        TA0CCR0 = (music+i)->pitch >> (music+i)->octave;
+        TA0CCR1 = ((music+i)->pitch >> (music+i)->octave) >> 1;
+        delay_cycles((music+i)->duration);
 
-        for(i=0; i < 2; i++){
-            sound('a', 2, d);
-            sound('a', 2, d);
-            sound('c', 3, d);
-            sound('a', 2, d);
-            sound('d', 3, d);
-            sound('a', 2, d);
-            sound('e', 3, d);
-            sound('d', 3, d);
-
-            sound('c', 3, d);
-            sound('c', 3, d);
-            sound('e', 3, d);
-            sound('c', 3, d);
-            sound('g', 3, d);
-            sound('c', 3, d);
-            sound('e', 3, d);
-            sound('c', 3, d);
-
-            sound('g', 2, d);
-            sound('g', 2, d);
-            sound('b', 2, d);
-            sound('g', 2, d);
-            sound('c', 3, d);
-            sound('g', 2, d);
-            sound('d', 3, d);
-            sound('c', 3, d);
-
-            sound('f', 2, d);
-            sound('f', 2, d);
-            sound('a', 2, d);
-            sound('f', 2, d);
-            sound('c', 3, d);
-            sound('f', 2, d);
-            sound('b', 2, d);
-            sound('c', 3, d);
-       }
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('g', 2, 'q');
-        sound('b', 2, 'q');
-
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('g', 2, 'q');
-        sound('d', 2, 'q');
-
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('g', 2, 'q');
-        sound('b', 2, 'q');
-
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'q');
-        sound('a', 2, 'e');
-        sound('r', 2, 'e');
-        sound('a', 2, 's');
-        sound('r', 2, 'e');
-        sound('a', 2, 's');
-        sound('r', 2, 'e');
-        sound('a', 2, 's');
-        sound('r', 2, 'e');
-        sound('a', 2, 's');
-        sound('r', 2, 'q');
-        
-        sound('r', 2, 'w');
+        TA0CCR0 = 0;
+        TA0CCR1 = 0;
     }
 }
 
-/* This function takes in a note, musical A-G, at a specific octave
-    and duration, from a 32nd note to a whole note, and outputs sound.
-    Char 'r' is reserved for rests, or no sound */
-void sound(char note, unsigned int octave, char duration){
-    switch(note){
-        case 'c':
-            TA0CCR0 = whole_notes[0 + 7*octave];
-            TA0CCR1 = whole_notes[0+7*octave] >> 1;
-            break;
+/* Returns a note structure of desired pitch, octave, and duration */
+struct note newNote(long pitch, char octave, long duration){
+    struct note n = {pitch, octave, duration};
+    return n;
+}
 
-        case 'd':
-            TA0CCR0 = whole_notes[1 + 7*octave];
-            TA0CCR1 = whole_notes[1 + 7*octave] >> 1;
-            break;
+/* Returns a structure representing a 'rest' of specified duration */
+struct note newRest(long duration){
+    struct note r = {C, 10, duration}; //inaudible
+    return r;
+}
 
-        case 'e':
-            TA0CCR0 = whole_notes[2 + 7*octave];
-            TA0CCR1 = whole_notes[2 + 7*octave] >> 1;
-            break;
+void initialize_melody1(){
+    mortal_kombat[0] = A_2_QUARTER;
+    mortal_kombat[1] = A_2_QUARTER;
+    mortal_kombat[2] = C_3_QUARTER;
+    mortal_kombat[3] = A_2_QUARTER;
+    mortal_kombat[4] = D_3_QUARTER;
+    mortal_kombat[5] = A_2_QUARTER;
+    mortal_kombat[6] = E_3_QUARTER;
+    mortal_kombat[7] = D_3_QUARTER;
 
-        case 'f':
-            TA0CCR0 = whole_notes[3 + 7*octave];
-            TA0CCR1 = whole_notes[3 + 7*octave] >> 1;
-            break;
+    mortal_kombat[8] = C_3_QUARTER;
+    mortal_kombat[9] = C_3_QUARTER;
+    mortal_kombat[10] = E_3_QUARTER;
+    mortal_kombat[11] = C_3_QUARTER;
+    mortal_kombat[12] = G_3_QUARTER;
+    mortal_kombat[13] = C_3_QUARTER;
+    mortal_kombat[14] = E_3_QUARTER;
+    mortal_kombat[15] = C_3_QUARTER;
 
-        case 'g':
-            TA0CCR0 = whole_notes[4 + 7*octave];
-            TA0CCR1 = whole_notes[4 + 7*octave] >> 1;
-            break;
-
-        case 'a':
-            TA0CCR0 = whole_notes[5 + 7*octave];
-            TA0CCR1 = whole_notes[5 + 7*octave] >> 1;
-            break;
-
-        case 'b':
-            TA0CCR0 = whole_notes[6 + 7*octave];
-            TA0CCR1 = whole_notes[6 + 7*octave] >> 1;
-            break;
-
-        case 'r':
-            TA0CCR0 = B_0 >> 10; //inaudible, used for rests
-            TA0CCR1 = B_0 >> 1;
-            break;
-    }
-    
-    if(duration == 'w') __delay_cycles(WHOLE);
-    else if(duration == 'h') __delay_cycles(HALF);
-    else if(duration == 'q') __delay_cycles(QUARTER);
-    if(duration == 'e') __delay_cycles(EIGTH);
-    if(duration == 's') __delay_cycles(SIXTEENTH);
-    if(duration == 't') __delay_cycles(THIRTYSECOND);
-    
-    TA0CCR0 = B_0 >> 10;
-    TA0CCR1 = B_0 >> 1;
+    mortal_kombat[16] = G_2_QUARTER;
+    mortal_kombat[17] = G_2_QUARTER;
+    mortal_kombat[18] = B_2_QUARTER;
+    mortal_kombat[19] = G_2_QUARTER;
+    mortal_kombat[20] = C_3_QUARTER;
+    mortal_kombat[21] = G_2_QUARTER;
+    mortal_kombat[22] = D_3_QUARTER;
+    mortal_kombat[23] = C_3_QUARTER;
 }
