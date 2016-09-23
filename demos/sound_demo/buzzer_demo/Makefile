@@ -1,5 +1,5 @@
 # makfile configuration
-COMMON_OBJECTS  = buzzer.o
+COMMON_OBJECTS  = interrupts.o sr.o
 CPU             = msp430g2553
 CFLAGS          = -mmcu=${CPU} 
 
@@ -10,10 +10,10 @@ AS              = msp430-elf-as
 all: buzzer.elf 
 
 #additional rules for files
-buzzer.elf: ${COMMON_OBJECTS}
+buzzer.elf: ${COMMON_OBJECTS} buzzer.o buzzerHandler.o
 	${CC} -mmcu=${CPU} -o $@ $^
 
-install_c: buzzer.elf
+install: buzzer.elf
 	mspdebug rf2500 "prog buzzer.elf"
 
 clean:
@@ -21,3 +21,9 @@ clean:
 
 #project dependencies
 buzzer.o: buzzer.c
+
+buzzerHandler.o: buzzerHandler.c
+
+interrupts.o: interrupts.s
+
+sr.o: sr.s
