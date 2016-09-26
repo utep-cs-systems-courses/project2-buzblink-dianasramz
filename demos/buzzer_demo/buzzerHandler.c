@@ -1,29 +1,23 @@
 #include <msp430.h>
 
-static unsigned char count = 0;
-static unsigned int c = 1;
-static unsigned char down = 1;
+static unsigned int frequency = 10000;
+static unsigned char up = 1;
 
 void buzzer_control();
 
 void timerHandler(){
-	count++;
-	if(count >= 10){
-		count = 0;
+	if(up)
+		frequency++;
+	else
+		frequency--;
 
-		if(down)
-			c++;
-		else
-			c--;
+	if(frequency > 10000 || frequency <= 1)
+		up = 1 - up;
 
-		if(c > 1000 || c <= 1)
-			down = 1 - down;
-
-		buzzer_control();
-	}
+	buzzer_control();
 }
 
 void buzzer_control(){
-	TA0CCR0 = c;
-	TA0CCR1 = c >> 1;
+	TA0CCR0 = frequency;
+	TA0CCR1 = frequency >> 1;
 }

@@ -1,8 +1,8 @@
 #include <msp430.h>
 
 void configureClocks(){
-    BCSCTL1 = CALBC1_1MHZ;   // Set range 
-    DCOCTL = CALDCO_1MHZ;    
+    BCSCTL1 = CALBC1_16MHZ;   // Set range 
+    DCOCTL = CALDCO_16MHZ;    
     //BCSCTL2 &= ~(DIVS_3);    // SMCLK = DCO / 8 = 1MHz 
 }
  
@@ -25,7 +25,7 @@ int main() {
                 // Timer A control:
                 //  Timer clock source 2: system clock
     TACTL = TASSEL_2 + MC_1;      //  Mode Control 1: continuously 0...CCR0
-    CCR0 = 10000;         // Interrupt every 10,000 cycles (1MHz/10,000)
+    CCR0 = 16000;         // Interrupt every 10,000 cycles (1MHz/10,000)
 
     or_sr(0x18);          // CPU off, GIE on
 }
