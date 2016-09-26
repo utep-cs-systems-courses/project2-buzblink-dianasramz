@@ -17,6 +17,10 @@ void main(void)
   P1IE = BIT3;		   	// switch interrupt (bit 3) enabled
   P1IES = BIT3;		 	// switch interrupt high-low transition (wait for down)
   P1IFG &= ~BIT3;	   	// switch interrupt pending flag cleared
+
+  P2DIR = 0X00;
+  P2REN |= 0X01;
+
   or_sr(BIT5|BIT4|BIT3);	// OSC off (5) CPU off (4) , GIE (3)
 } 
 
