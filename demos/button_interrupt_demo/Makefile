@@ -1,14 +1,5 @@
-# Demo Makefile for lab 2-2.  
-# Used for button interrupt driven demo
-#
-# @author Adrian Veliz
-# @author Eric Freudenthal
-# @version 0.1.20130910
-#
-
-
 # makfile configuration
-COMMON_OBJECTS  = interrupts.o sr.o
+COMMON_OBJECTS  = sr.o
 CPU             = msp430g2553
 CFLAGS          = -mmcu=${CPU} 
 
@@ -16,24 +7,21 @@ CFLAGS          = -mmcu=${CPU}
 CC              = msp430-elf-gcc
 AS              = msp430-elf-as
 
-all: a-button.elf 
+all: button.elf 
 
 #additional rules for files
-a-button.elf: ${COMMON_OBJECTS} buttonIOA.o buttonMain.o
+button.elf: ${COMMON_OBJECTS} button_interrupt.o buttonMain.o
 	${CC} -mmcu=${CPU} -o $@ $^
 
-install: a-button.elf
-	mspdebug rf2500 "prog a-button.elf"
+install: button.elf
+	mspdebug rf2500 "prog button.elf"
 
 clean:
 	rm -f *.o *.elf
 
-
 #project dependencies
 buttonMain.o: buttonMain.c
 
-buttonIOA.o: buttonIOA.c
-
-interrupts.o: interrupts.s
+button_interrupt.o: button_interrupt.c
 
 sr.o: sr.s

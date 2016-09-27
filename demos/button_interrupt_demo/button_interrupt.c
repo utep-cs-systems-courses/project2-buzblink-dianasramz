@@ -8,7 +8,7 @@ void led_control(){
     ledFlags = BIT0;    // red led
 
   if(!((P2IN & (~P2IN | S2)) == S2)) // S2 pressed
-    P1OUT = BIT6;   // green led
+    ledFlags = BIT6;   // green led
 
   P1OUT &= (0xff-(BIT0+BIT6)) | ledFlags; // clear bits for off leds
   P1OUT |= ledFlags;         // set bits for on leds
