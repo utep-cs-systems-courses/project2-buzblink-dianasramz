@@ -5,19 +5,19 @@ static unsigned char count = 0;
 
 void led_control();
 
-int timerHandler(){
-	count++;
-	if(count >= 100){
-		led_state = 1 - led_state;
-		count = 0;
-		led_control();
-	} 
-}
-
 void led_control(){
 	char ledFlags = 0;
 	if(led_state)
 		ledFlags |= BIT6;
 	P1OUT &= (0xff-(BIT6+BIT0)) | ledFlags; // clear bit for off leds
 	P1OUT |= ledFlags;        // set bit for on leds
+}
+
+__interrupt(TIMER0_A0_VECTOR) TIMER_A0(){
+	count++;
+	if(count >= 100){
+		led_state = 1 - led_state;
+		count = 0;
+		led_control();
+	}
 }

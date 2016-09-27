@@ -19,7 +19,7 @@ int main(void) {
   CCR0 = 10000;       // Interrupt every 10,000 cycles (1MHz/10,000)
   P1DIR = BIT0 + BIT6; /* LED bits are for output */
 
-  or_sr(0x18);
+  or_sr(0x18); // CPU off, GIE on
   
   return 0;
 }

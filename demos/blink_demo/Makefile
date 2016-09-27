@@ -1,5 +1,5 @@
 # makfile configuration
-COMMON_OBJECTS  = interrupt.o sr.o
+COMMON_OBJECTS  = sr.o
 CPU             = msp430g2553
 CFLAGS          = -mmcu=${CPU} 
 
@@ -23,7 +23,5 @@ clean:
 blinkMain.o: blinkMain.c
 
 stateMachines.o: stateMachines.c
-
-interrupt.o: interrupt.s
 
 sr.o: sr.s
