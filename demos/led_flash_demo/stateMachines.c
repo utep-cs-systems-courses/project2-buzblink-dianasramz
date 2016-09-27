@@ -27,9 +27,9 @@ void timerHandler(){
 void led_control(){
   char ledFlags = 0;
   if(green_led_state)
-    ledFlags |= BIT0;
-  if(red_led_state)
     ledFlags |= BIT6;
+  if(red_led_state)
+    ledFlags |= BIT0;
   P1OUT &= (0xff-(BIT6+BIT0)) | ledFlags; // clear bit for off leds
   P1OUT |= ledFlags;        // set bit for on leds
 }

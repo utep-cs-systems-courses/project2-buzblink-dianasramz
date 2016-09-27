@@ -5,7 +5,7 @@
 //	P1.3 button (zero if down, needs resistor pull up)
 //	P1.6 green led (1=ON)
 
-void mcOsc1MHz(void) 		/* set master clock to 1MHz */
+void configure_clock(void) 		/* set master clock to 1MHz */
 { 
   BCSCTL1 = CALBC1_1MHZ;   // Set range 
   DCOCTL = CALDCO_1MHZ;	   
@@ -15,7 +15,7 @@ void mcOsc1MHz(void) 		/* set master clock to 1MHz */
 void main(void) 
 {  
   WDTCTL = WDTPW + WDTHOLD;	// Stop watchdog timer
-  mcOsc1MHz();			// set master clock to 1MHz
+  configure_clock();			// set master clock to 1MHz
   CCTL0 = CCIE;		   	// Timer A interrupt enabled
 				// Timer A control:
 				//  Timer clock source 2: system clock
