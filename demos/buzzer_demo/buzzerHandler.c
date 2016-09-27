@@ -5,7 +5,12 @@ static unsigned char up = 1;
 
 void buzzer_control();
 
-void timerHandler(){
+void buzzer_control(){
+	TA0CCR0 = frequency;
+	TA0CCR1 = frequency >> 1;
+}
+
+__interrupt(TIMER0_A0_VECTOR) TIMER_A0(){
 	if(up)
 		frequency++;
 	else
@@ -15,9 +20,4 @@ void timerHandler(){
 		up = 1 - up;
 
 	buzzer_control();
-}
-
-void buzzer_control(){
-	TA0CCR0 = frequency;
-	TA0CCR1 = frequency >> 1;
 }

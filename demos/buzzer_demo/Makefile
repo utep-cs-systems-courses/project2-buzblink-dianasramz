@@ -1,5 +1,5 @@
 # makfile configuration
-COMMON_OBJECTS  = interrupts.o sr.o
+COMMON_OBJECTS  = sr.o
 CPU             = msp430g2553
 CFLAGS          = -mmcu=${CPU} 
 
@@ -23,7 +23,5 @@ clean:
 buzzer.o: buzzer.c
 
 buzzerHandler.o: buzzerHandler.c
-
-interrupts.o: interrupts.s
 
 sr.o: sr.s
