@@ -9,6 +9,6 @@ void main(void) {
 
   P2REN |= P2SwMask;  /* resistors for switches */
   P2IE = P2SwMask;  /* enable interrupts from switches */
-
+  P1OUT = 0; // leds start off
   or_sr(0x18);  // CPU off, GIE on
 } 
