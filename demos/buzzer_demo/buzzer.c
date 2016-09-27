@@ -25,7 +25,7 @@ int main() {
                 // Timer A control:
                 //  Timer clock source 2: system clock
     TACTL = TASSEL_2 + MC_1;      //  Mode Control 1: continuously 0...CCR0
-    CCR0 = 16000;         // Interrupt every 10,000 cycles (1MHz/10,000)
+    CCR0 = 16000;         // Interrupt every 16,000 cycles (16MHz/16,000)
 
     or_sr(0x18);          // CPU off, GIE on
 }
