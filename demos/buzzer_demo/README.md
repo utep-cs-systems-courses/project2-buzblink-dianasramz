@@ -1,5 +1,5 @@
 # arch1-project2
-msp430 button interrupt demo
+msp430 buzzer demo
 
 # Description
 
