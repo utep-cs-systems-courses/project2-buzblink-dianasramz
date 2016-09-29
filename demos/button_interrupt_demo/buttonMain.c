@@ -1,7 +1,7 @@
 #include <msp430.h>
-#include "buttons.h"
+#include "led_control.h"
 
-#define P1SwMask S2
+#define P1SwMask BIT3
 
 void main(void) {  
   WDTCTL = WDTPW + WDTHOLD; // Stop watchdog timer
@@ -11,4 +11,5 @@ void main(void) {
   P1IE = P1SwMask;  /* enable interrupts from switch */
   P1OUT |= P1SwMask; /* pull-ups for switch */
   or_sr(0x18);  // CPU off, GIE on
+  led_control();
 } 

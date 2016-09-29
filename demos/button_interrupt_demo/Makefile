@@ -10,7 +10,7 @@ AS              = msp430-elf-as
 all: button.elf 
 
 #additional rules for files
-button.elf: ${COMMON_OBJECTS} button_interrupt.o buttonMain.o
+button.elf: ${COMMON_OBJECTS} button_interrupt.o buttonMain.o led_control.o
 	${CC} -mmcu=${CPU} -o $@ $^
 
 install: button.elf

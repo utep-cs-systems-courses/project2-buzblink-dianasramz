@@ -16,7 +16,7 @@ int main(void) {
         // Timer A control:
         //  Timer clock source 2: system clock
   TACTL = TASSEL_2 + MC_1;      //  Mode Control 1: continuously 0...CCR0
-  CCR0 = 10000;       // Interrupt every 10,000 cycles (1MHz/10,000)
+  CCR0 = 10000;       // Interrupt every 10,000 cycles (1MHz/10,000 = 100Hz)
   P1DIR = BIT0 + BIT6; /* LED bits are for output */
 
   or_sr(0x18); // CPU off, GIE on
