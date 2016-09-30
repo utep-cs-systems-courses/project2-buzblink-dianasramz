@@ -1,7 +1,8 @@
 # makfile configuration
-COMMON_OBJECTS  = sr.o
+COMMON_OBJECTS  = 
 CPU             = msp430g2553
-CFLAGS          = -mmcu=${CPU} 
+CFLAGS          = -mmcu=${CPU} -I../h
+LDFLAGS = ../lib/libTimer.a
 
 #switch the compiler (for the internal make rules)
 CC              = msp430-elf-gcc
@@ -10,8 +11,8 @@ AS              = msp430-elf-as
 all: buzzerBlink.elf 
 
 #additional rules for files
-buzzerBlink.elf: ${COMMON_OBJECTS} main.o blinkHandler.o buzzerHandler.o
-	${CC} -mmcu=${CPU} -o $@ $^
+buzzerBlink.elf: ${COMMON_OBJECTS} main.o led.o buzzer.o wdInterruptHandler.o ../lib/libTimer.a
+	${CC} $(CFLAGS) $^ $(LDFLAGS) -o $@ 
 
 install: buzzerBlink.elf
 	mspdebug rf2500 "prog $^"
@@ -19,10 +20,3 @@ install: buzzerBlink.elf
 clean:
 	rm -f *.o *.elf
 
-#project dependencies
-main.o: main.c
-
-buzzerHandler.o: buzzerHandler.c
-
-blinkHandler.o: blinkHandler.c
-sr.o: sr.s
