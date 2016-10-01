@@ -2,24 +2,10 @@
 
 #include <msp430.h>
 
-void configureClocks(void)    /* set master clock to 1MHz */
-{ 
-  BCSCTL1 = CALBC1_1MHZ;   // Set range 
-  DCOCTL = CALDCO_1MHZ;    
-  BCSCTL2 &= ~(DIVS_3);    // SMCLK = DCO / 8 = 1MHz 
-} 
-
 int main(void) {
-  WDTCTL = WDTPW + WDTHOLD; /* Disable Watchdog Timer */
-  configureClocks();	
-  CCTL0 = CCIE;       // Timer A interrupt enabled
-        // Timer A control:
-        //  Timer clock source 2: system clock
-  TACTL = TASSEL_2 + MC_1;      //  Mode Control 1: continuously 0...CCR0
-  CCR0 = 10000;       // Interrupt every 10,000 cycles (1MHz/10,000 = 100Hz)
-  P1DIR = BIT0 + BIT6; /* LED bits are for output */
+  configureClocks();		/* setup master oscillator, CPU & peripheral clocks */
+  led_init();
+  enableWDTInterrupts();	/* enable periodic interrupt */
 
-  or_sr(0x18); // CPU off, GIE on
-  
-  return 0;
+  or_sr(0x18);		/* CPU off, GIE on */
 }

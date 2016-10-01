@@ -11,12 +11,18 @@ AS              = msp430-elf-as
 all: buzzerBlink.elf 
 
 #additional rules for files
-buzzerBlink.elf: ${COMMON_OBJECTS} main.o led.o buzzer.o wdInterruptHandler.o ../lib/libTimer.a
+buzzerBlink.elf: ${COMMON_OBJECTS} bbmain.o led.o buzzer.o wdInterruptHandler.o ../lib/libTimer.a
 	${CC} $(CFLAGS) $^ $(LDFLAGS) -o $@ 
 
-install: buzzerBlink.elf
+load: buzzerBlink.elf
 	mspdebug rf2500 "prog $^"
 
 clean:
 	rm -f *.o *.elf
+
+
+bbmain.o: buzzer.h led.h
+led.o: led.h
+buzzer.c: buzzer.h
+wdInterruptHandler.o: buzzer.h led.h
 

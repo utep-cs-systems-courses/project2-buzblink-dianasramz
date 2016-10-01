@@ -2,6 +2,7 @@
 #include "libTimer.h"
 
 void configureClocks(){
+  WDTCTL = WDTPW + WDTHOLD;//Disable Watchdog Timer
   BCSCTL1 = CALBC1_16MHZ;  // Set DCO to 16 Mhz
   DCOCTL = CALDCO_16MHZ;
     

@@ -1,5 +1,5 @@
 # makfile configuration
-COMMON_OBJECTS  = sr.o
+COMMON_OBJECTS  = 
 CPU             = msp430g2553
 CFLAGS          = -mmcu=${CPU} 
 
@@ -10,18 +10,17 @@ AS              = msp430-elf-as
 all: blink.elf 
 
 #additional rules for files
-blink.elf: ${COMMON_OBJECTS} blinkMain.o stateMachines.o
+blink.elf: ${COMMON_OBJECTS} blinkMain.o stateMachines.o led.o wdInterruptHandler.c ../lib/libTimer.a
 	${CC} -mmcu=${CPU} -o $@ $^
 
-install: blink.elf
+load: blink.elf
 	mspdebug rf2500 "prog blink.elf"
 
 clean:
 	rm -f *.o *.elf
 
-#project dependencies
-blinkMain.o: blinkMain.c
+led.o: led.c led.h
 
-stateMachines.o: stateMachines.c
+wdInterruptHandler.o: stateMachines.h
 
-sr.o: sr.s
+stateMachines.o: led.h stateMachines.h

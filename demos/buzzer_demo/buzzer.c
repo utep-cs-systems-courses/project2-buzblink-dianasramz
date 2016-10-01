@@ -21,18 +21,7 @@ void buzzer_init()
     P2SEL |= BIT6;
     P2DIR = BIT6;		/* enable output to speaker (P2.6) */
 
-    buzzer_advance_frequency();	/* start buzzing!!! */
-}
-
-void buzzer_advance_frequency() 
-{
-  period += rate;
-  if ((rate > 0 && (period > MAX_PERIOD)) || 
-      (rate < 0 && (period < MIN_PERIOD))) {
-    rate = -rate;
-    period += (rate << 1);
-  }
-  buzzer_set_period(period);
+    buzzer_set_period(1000);;	/* start buzzing!!! */
 }
 
 void buzzer_set_period(short cycles)

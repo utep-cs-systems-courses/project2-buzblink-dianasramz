@@ -13,7 +13,7 @@ all: button.elf
 button.elf: ${COMMON_OBJECTS} p1_interrupt_handler.o led.o switches.o buttonMain.o ../lib/libTimer.a
 	${CC} -mmcu=${CPU} -o $@ $^
 
-install: button.elf
+load: button.elf
 	mspdebug rf2500 "prog button.elf"
 
 clean:
