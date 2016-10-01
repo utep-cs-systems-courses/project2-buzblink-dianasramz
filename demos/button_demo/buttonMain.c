@@ -2,9 +2,8 @@
 #include "led.h"
 #include "switches.h"
 
-void main(void) {  
-  WDTCTL = WDTPW + WDTHOLD; // Stop watchdog timer
-
+void main(void) 
+{  
   switch_init();
   led_init();
 

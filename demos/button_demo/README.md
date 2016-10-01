@@ -17,13 +17,15 @@ each time the button is pressed, and kept that LED illuminated until
 the next time the button was pressed.
 
 _Separation of duties:_ Input and output are not always so closely
-connected.  Frequently an input begins a computation that
-eventually results in an output.  For example, pressing "next song" on
-a streming audio player begins a complicated multi-stage process that
-eventually results in a different song being played.   Suggestion: start
-with someting simple such as respond to the buttons using interrupts, but
-not directly updating the LEDS, instead just update a state variable.
-The code to update the LEDs could be driven by periodic interrupt that
-either flashes the red or green led based on the value of the button
-state variables.   
+connected.  Frequently an input begins a computation that eventually
+results in an output.  For example, pressing "next song" on a streming
+audio player begins a complicated multi-stage process that eventually
+results in a different song being played.  Suggestion: start with
+someting simple such as responding to the buttons using interrupts to
+set state variables, and update the leds when the timer interrupt
+occurs.  
 
+# Some advice
+
+If you create a new program based upon one of ours, first copy the
+entire directory, add it to git, and work in that copy.

@@ -2,7 +2,6 @@
 #include "buzzer.h"
  
 int main() {
-    WDTCTL = WDTPW | WDTHOLD; // Stop watchdog timer
     configureClocks();
  
     buzzer_init();
