@@ -1,5 +1,5 @@
 # makfile configuration
-COMMON_OBJECTS  = sr.o
+COMMON_OBJECTS  = 
 CPU             = msp430g2553
 CFLAGS          = -mmcu=${CPU} 
 
@@ -10,7 +10,7 @@ AS              = msp430-elf-as
 all: button.elf 
 
 #additional rules for files
-button.elf: ${COMMON_OBJECTS} button_interrupt.o buttonMain.o led_control.o
+button.elf: ${COMMON_OBJECTS} p1_interrupt_handler.o led.o switches.o buttonMain.o ../lib/libTimer.a
 	${CC} -mmcu=${CPU} -o $@ $^
 
 install: button.elf
@@ -19,9 +19,3 @@ install: button.elf
 clean:
 	rm -f *.o *.elf
 
-#project dependencies
-buttonMain.o: buttonMain.c
-
-button_interrupt.o: button_interrupt.c
-
-sr.o: sr.s
