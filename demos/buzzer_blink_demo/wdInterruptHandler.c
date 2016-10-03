@@ -11,13 +11,13 @@ void decisecond()
   }
 }
 
-__interrupt(WDT_VECTOR) WDT(){	/* 62.5 interrupts/sec */
+__interrupt(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
   static char second_count = 0, decisecond_count = 0;
-  if (++second_count == 62) {
+  if (++second_count == 250) {
     led_toggle();
     second_count = 0;
   }
-  if (++decisecond_count == 6) {
+  if (++decisecond_count == 25) {
     buzzer_advance_frequency();
     decisecond_count = 0;
   }

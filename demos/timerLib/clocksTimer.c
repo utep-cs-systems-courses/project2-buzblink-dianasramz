@@ -17,7 +17,8 @@ void enableWDTInterrupts()
 {
   WDTCTL = WDTPW |	   // passwd req'd.  Otherwise device resets
     WDTTMSEL |		     // watchdog interval mode 
-    WDTCNTCL;		     // clear watchdog count
+    WDTCNTCL |		     // clear watchdog count
+    1;			     // divide SMCLK by 8192
   IE1 |= WDTIE;		   // Enable watchdog interval timer interrupt
 }
 
