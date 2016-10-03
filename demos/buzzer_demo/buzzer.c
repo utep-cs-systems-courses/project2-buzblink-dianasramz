@@ -1,10 +1,6 @@
 #include <msp430.h>
-#include "buzzer.h"
-static unsigned int period = 1000;
-static signed int rate = 200;	
+#include "buzzer.h"	
 
-#define MIN_PERIOD 1000
-#define MAX_PERIOD 4000
 
 void buzzer_init()
 {
@@ -21,7 +17,7 @@ void buzzer_init()
     P2SEL |= BIT6;
     P2DIR = BIT6;		/* enable output to speaker (P2.6) */
 
-    buzzer_set_period(1000);;	/* start buzzing!!! */
+    buzzer_set_period(1000);	/* start buzzing!!! */
 }
 
 void buzzer_set_period(short cycles)
