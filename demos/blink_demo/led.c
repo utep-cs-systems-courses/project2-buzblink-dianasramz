@@ -16,7 +16,7 @@ void led_init()
 
 void led_update()
 {
-  if (1 || led_changed) {
+  if (led_changed) {
     char ledFlags = redVal[red_on] | greenVal[green_on];
     
     P1OUT &= (0xff^LEDS) | ledFlags; // clear bit for off leds
