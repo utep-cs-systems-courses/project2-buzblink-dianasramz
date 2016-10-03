@@ -15,7 +15,7 @@ void configureClocks(){
 // period = SMCLOCK/32k
 void enableWDTInterrupts()  
 {
-  WDTCTL = WDTPW |	     // passwd req'd.  Otherwise device resets
+  WDTCTL = WDTPW |	   // passwd req'd.  Otherwise device resets
     WDTTMSEL |		     // watchdog interval mode 
     WDTCNTCL;		     // clear watchdog count
   IE1 |= WDTIE;		   // Enable watchdog interval timer interrupt
@@ -24,25 +24,14 @@ void enableWDTInterrupts()
 
 void timerAUpmode()
 {
-    TA0CCR0 = 0; // frequency timer
-    TA0CCR1 = 0;
-    TA0CTL = TASSEL_2 + MC_1 + ID_2; // SMCLK, upmode, /4
-    TA0CCTL1 = OUTMOD_3;
-    
-
-    //    CCTL0 = CCIE;           // Timer A interrupt enabled
-                // Timer A control:
-                //  Timer clock source 2: system clock
-    TACTL = TASSEL_2 + MC_1;      //  Mode Control 1: continuously 0...CCR0
-    /*
-  TA0CTL = TASSEL_2 + MC_1 + ID_2; // SMCLK, upmode, /4
-  TACCTL0 = 0; //CCIE;           // Timer A interrupt enabled
-  TACCTL1 = OUTMOD_3;
-  TACCTL2 = 0; //CCIE;           // Timer A interrupt enabled
+  TA0CCR0 = 0; 
+  TA0CCR1 = 0; 
+  TA0CCTL1 = OUTMOD_3;		/* Toggle p1.6 when timer=count1 */
+  
   // Timer A control:
-  //  Timer clock source 2: system clock
-  TACTL = TASSEL_2 + MC_1;      //  SMCLOCK, UP mode
-    */
+  //  Timer clock source 2: system clock (SMCLK)
+  //  Mode Control 1: continuously 0...CCR0
+  TACTL = TASSEL_2 + MC_1;   
 }
 
 
