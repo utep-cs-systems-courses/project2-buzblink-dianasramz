@@ -8,7 +8,7 @@ static char
 switch_update_interrupt_sense()
 {
   char p1val = P1IN;
-  /* update switch interrupt sensitivity */
+  /* update switch interrupt to detect changes from current buttons */
   P1IES |= (p1val & SWITCHES);	/* if switch up, sense down */
   P1IES &= (p1val | ~SWITCHES);	/* if switch down, sense up */
   return p1val;

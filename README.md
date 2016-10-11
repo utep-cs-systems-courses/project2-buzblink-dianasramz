@@ -14,6 +14,17 @@ speaker, and an LED screen. Utilizing these features and your
 knowledge of I/O, develop a program to turn the board into a toy for a
 child.
 
+This toy should at minimum
+
+* generate sounds 
+* dynamically change the combination of LEDs that are illuminated, both brighly and dimmly
+* respond to presses to the four buttons on the expansion board (on P2.0...P2.3) in a 
+  way that affects state transitions of the automata that control sound and lights
+
+
+Furthermore, at least one of the functions that implements state
+transitions must be written in well-documented assembly language.
+
 ## Getting Started 
 
 Inside the box, several demo programs were found
