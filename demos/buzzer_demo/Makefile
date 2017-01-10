@@ -1,7 +1,7 @@
 # makfile configuration
 COMMON_OBJECTS  = 
 CPU             = msp430g2553
-CFLAGS          = -mmcu=${CPU} 
+CFLAGS          = -mmcu=${CPU} -I../h -L/opt/ti/msp430_gcc/include
 
 #switch the compiler (for the internal make rules)
 CC              = msp430-elf-gcc
@@ -11,7 +11,7 @@ all: buzzer.elf
 
 #additional rules for files
 buzzer.elf: ${COMMON_OBJECTS} buzzer.o buzzerMain.o ../lib/libTimer.a
-	${CC} -mmcu=${CPU} -o $@ $^
+	${CC} ${CFLAGS} -o $@ $^
 
 load: buzzer.elf
 	mspdebug rf2500 "prog buzzer.elf"

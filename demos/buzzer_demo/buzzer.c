@@ -1,6 +1,6 @@
 #include <msp430.h>
-#include "buzzer.h"	
-
+#include "libTimer.h"
+#include "buzzer.h"
 
 void buzzer_init()
 {

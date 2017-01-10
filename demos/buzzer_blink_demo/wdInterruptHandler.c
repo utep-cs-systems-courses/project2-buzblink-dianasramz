@@ -11,7 +11,8 @@ void decisecond()
   }
 }
 
-__interrupt(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
+void
+__interrupt_vec(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
   static char second_count = 0, decisecond_count = 0;
   if (++second_count == 250) {
     led_toggle();

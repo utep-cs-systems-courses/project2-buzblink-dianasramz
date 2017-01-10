@@ -1,5 +1,5 @@
-#include <libTimer.h>
 #include <msp430.h>
+#include <libTimer.h>
 #include "buzzer.h"		/* for setPeriod */
 #include "led.h"		/* for led_control() */
 

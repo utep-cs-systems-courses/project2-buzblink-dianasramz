@@ -1,7 +1,8 @@
 # makfile configuration
 COMMON_OBJECTS  = 
 CPU             = msp430g2553
-CFLAGS          = -mmcu=${CPU} 
+CFLAGS          = -mmcu=${CPU} -I../h
+LDFLAGS		= -L/opt/ti/msp430_gcc/include
 
 #switch the compiler (for the internal make rules)
 CC              = msp430-elf-gcc
@@ -11,7 +12,7 @@ all: blink.elf
 
 #additional rules for files
 blink.elf: ${COMMON_OBJECTS} blinkMain.o stateMachines.o led.o wdInterruptHandler.c ../lib/libTimer.a
-	${CC} -mmcu=${CPU} -o $@ $^
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 load: blink.elf
 	mspdebug rf2500 "prog blink.elf"
