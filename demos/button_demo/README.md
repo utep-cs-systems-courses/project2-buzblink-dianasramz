@@ -20,6 +20,9 @@ something simple such as responding to the buttons using interrupts to
 set state variables, and update the LEDs when the timer interrupt
 occurs.  
 
+_Time and button interaction:_
+Integrate the timer mechanisms from the blink demo and have the button affect the blink sequence.
+
 ## Some Advice
 When creating your own variants to the demo programs,
 it's probably a good idea to keep a copy of the original program (or really understand how _git checkout_ works).  
