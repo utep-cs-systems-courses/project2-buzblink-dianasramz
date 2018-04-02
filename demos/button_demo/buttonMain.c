@@ -5,6 +5,7 @@
 
 void main(void) 
 {  
+  configureClocks();
   switch_init();
   led_init();
 
