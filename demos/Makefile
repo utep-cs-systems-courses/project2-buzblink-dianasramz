@@ -3,6 +3,7 @@ all:
 	(cd blink_demo; make)
 	(cd button_demo; make)
 	(cd buzzer_demo; make)
+	(cd dim_demo; make)
 	(cd buzzer_blink_demo; make)
 
 clean:
@@ -10,6 +11,7 @@ clean:
 	(cd blink_demo; make clean)
 	(cd button_demo; make clean)
 	(cd buzzer_demo; make clean)
+	(cd dim_demo; make clean)
 	(cd buzzer_blink_demo; make clean)
 	rm -rf lib h
 
