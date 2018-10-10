@@ -23,8 +23,8 @@ This toy should at minimum
   way that affects state transitions of the automata that control sound and lights
 
 
-Furthermore, at least one of the functions that implements state
-transitions must be written in well-documented assembly language.
+**Furthermore, at least one of the functions that implements state
+transitions must be written in well-documented assembly language.**
 
 ## Getting Started 
 
