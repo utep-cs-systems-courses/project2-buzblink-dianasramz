@@ -1,5 +1,4 @@
-#Lab 2: Blinky-Buzzy Toys
-## Project Description 
+# Lab 2: Blinky-Buzzy Toys
 
 Impressed with your work, ACME Solutions is now
 requesting your help once again. A warehouse employee stumbled upon a
