@@ -15,7 +15,7 @@ dim.elf: ${COMMON_OBJECTS} dimMain.o stateMachines.o led.o wdInterruptHandler.o 
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 load: dim.elf
-	mspdebug rf2500 "prog dim.elf"
+	msp430loader.sh dim.elf
 
 clean:
 	rm -f *.o *.elf
