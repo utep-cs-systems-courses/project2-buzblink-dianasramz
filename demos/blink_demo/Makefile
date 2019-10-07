@@ -15,7 +15,7 @@ blink.elf: ${COMMON_OBJECTS} blinkMain.o stateMachines.o led.o wdInterruptHandle
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 load: blink.elf
-	mspdebug rf2500 "prog blink.elf"
+	msp430loader.sh blink.elf
 
 clean:
 	rm -f *.o *.elf
