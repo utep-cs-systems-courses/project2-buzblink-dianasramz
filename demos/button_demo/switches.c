@@ -18,7 +18,7 @@ void
 switch_init()			/* setup switch */
 {  
   P1REN |= SWITCHES;		/* enables resistors for switches */
-  P1IE = SWITCHES;		/* enable interrupts from switches */
+  P1IE |= SWITCHES;		/* enable interrupts from switches */
   P1OUT |= SWITCHES;		/* pull-ups for switches */
   P1DIR &= ~SWITCHES;		/* set switches' bits for input */
   switch_update_interrupt_sense();
