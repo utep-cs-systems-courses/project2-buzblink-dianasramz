@@ -6,7 +6,6 @@ Program | Description
 Blink   | Uses timer interrupts to flash the LEDs in a silly pattern.
 Button  | Uses interrupts to detect when a switch is pressed or released.
 Buzzer  | Emits a single continuous note from the buzzer.
-Dim     | Uses Pulse Width Modulation (PWN) to illuminate an LED dimly.
 
 ## How to Use
 
