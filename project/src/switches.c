@@ -6,6 +6,7 @@
 #include "stateMachine.h"
 
 char switch1_state_down, switch2_state_down, switch3_state_down, switch4_state_down, switch_state_changed; /* effectively boolean */
+char bState;
 
 static char 
 switch_update_interrupt_sense()
@@ -25,7 +26,7 @@ switch_init()			/* setup switch */
   P2OUT |= SWITCHES;		/* pull-ups for switches */
   P2DIR &= ~SWITCHES;		/* set switches' bits for input */
   switch_update_interrupt_sense();
-  led_update();
+  //led_update();
 }
 
 void
@@ -37,7 +38,16 @@ switch_interrupt_handler()
   switch3_state_down = (p2val & SW3) ? 0 : 1; /* 0 when SW3 is up */
   switch4_state_down = (p2val & SW4) ? 0 : 1; /* 0 when SW4 is up */
   if(switch1_state_down){
-    button_state = 1;
+    bState = 1;
   }
-  led_update();
+  else if (switch2_state_down){
+    bState = 2;
+  }
+  else if(switch3_state_down){
+    bState = 3;
+  }
+  else if(switch4_state_down){
+    bState = 4;
+  }
+
 }
